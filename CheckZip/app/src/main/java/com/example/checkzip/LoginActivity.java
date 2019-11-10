@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button signin;
     private TextView signup;
     private FirebaseAuth firebaseAuth;
-
+    private TextView forgetPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         signup = (TextView)findViewById(R.id.signupTV);
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        forgetPassword = (TextView)findViewById(R.id.forgotPasswordTV);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
             }
         });
 
@@ -70,18 +78,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, zipcheck.class));
+                    checkEmailVerification();
+                    //Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(LoginActivity.this, zipcheck.class));
                 }else{
                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });}
     }
-    /*private void checkEmailVerification() {
+    private void checkEmailVerification(){
         FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         Boolean emailflag = firebaseUser.isEmailVerified();
 
-        startActivity(new Intent(LoginActivity.this, zipcheck.class));
-    }*/
+        if (emailflag) {
+            finish();
+            startActivity(new Intent(LoginActivity.this, zipcheck.class));
+        }else{
+            Toast.makeText(this,"Verify your email", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+        }
+    }
 }

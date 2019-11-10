@@ -3,14 +3,17 @@
     package="com.example.checkzip">
 
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".zipcheck"></activity>
+        <activity
+            android:name=".PasswordActivity"
+            android:label="@string/title_activity_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".zipcheck" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

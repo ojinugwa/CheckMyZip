@@ -6,13 +6,18 @@ public class UserProfile {
     public String username;
     public String email;
     public String zipcode;
+    public String question;
+    public String answer;
 
 
-    public UserProfile(String firstName, String lastName, String username, String email, String zipcode){
+
+    public UserProfile(String firstName, String lastName, String username, String email, String zipcode,String question, String answer){
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.zipcode = zipcode;
+        this.question = question;
+        this.answer = answer;
     }
 }
