@@ -51,6 +51,7 @@ public class zipcheck extends AppCompatActivity {
                 fetchData process = new fetchData();
                 process.setZipcode(zipcode);
                 process.execute();
+
             }
         });
     }

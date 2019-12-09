@@ -31,17 +31,38 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 line = bufferedReader.readLine();
                 data = data + line;
             }
-            JSONArray jsonArray = new JSONArray(data);
+            JSONObject obj = new JSONObject(data);
+
+            JSONArray jsonArray = new JSONArray();
+            jsonArray = obj.getJSONObject("datafinder").getJSONArray("results");
             for(int i =0; i<jsonArray.length(); i++){
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                singleParsed = "Zipcode: "+jsonObject.get("AreaCode")+"\n"+
-                        "County: "+jsonObject.get("County")+"\n"+
-                        "Latitude:"+jsonObject.get("Latitude")+"\n"+
-                        "Longitude:"+jsonObject.get("Longitude")+"\n"+
-                        "Population Urban Area:"+jsonObject.get("PopulationUrbanArea")+"\n"+
-                        "SquareMiles:"+jsonObject.get("SquareMiles")+"\n"+
-                        "State:"+jsonObject.get("State")+"\n";
+                //singleParsed = "County: "+jsonObject.getString("County")+"\n";
+                 singleParsed = "Zipcode: "+jsonObject.getString("Zip5")+"\n"+
+                        "County: "+jsonObject.getString("County")+"\n"+
+                         "Latitude: "+jsonObject.getString("Latitude")+"\n"+
+                        "Longitude: "+jsonObject.getString("Longitude")+"\n"+
+                        "Population Urban Area: "+jsonObject.getString("PopulationUrbanArea")+"\n"+
+                        "SquareMiles: "+jsonObject.getString("SquareMiles")+"\n"+
+                        "State: "+jsonObject.getString("State")+"\n"+
+                        "Total Household with Earnings " +jsonObject.getString("TotalHhldswithEarnings")+"\n"+
+                         "CBSAVerbose: "+jsonObject.getString("CBSAVerbose")+"\n"+
+                         "Households 11 2018: "+jsonObject.getString("Hhlds112018")+"\n"+
+                         "Population 11 2018:"+jsonObject.getString("Population112018")+"\n"+
+                         "Population Density: "+jsonObject.getString("PopulationDensity")+"\n"+
+                         "Population Urban Area: "+jsonObject.getString("PopulationUrbanArea")+"\n"+
+                         "Population Asian:  "+jsonObject.getString("PopulationNotHispanicAsianAlone")+"\n"+
+                         "Population Black: "+jsonObject.getString("PopulationNotHispanicBlackAlone")+"\n"+
+                         "Population Native American: "+jsonObject.getString("PopulationNotHispanicNativeAmericanAlone")+"\n"+
+                         "Population Other Race Alone: "+jsonObject.getString("PopulationNotHispanicOtherRaceAlone")+"\n"+
+                         "Population Twoor More Races:"+jsonObject.getString("PopulationNotHispanicTwoorMoreRaces")+"\n"+
+                         "Population White Alone: "+jsonObject.getString("PopulationNotHispanicWhiteAlone")+"\n"+
+                         "Population Not Hispanic "+jsonObject.getString("PopulationNotHispanic")+"\n";
+
+
+
                 dataParsed = dataParsed+ singleParsed+"\n";
+
 
             }
         }catch(MalformedURLException e){
@@ -59,9 +80,10 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        zipcheck.age.setText(this.data);
+        zipcheck.age.setText(this.dataParsed);
     }
     public void setZipcode(String zipcode){
+        //zipurl="https://api.myjson.com/bins/pit9s";
         zipurl = "https://api.datafinder.com/v2/qdf.php?service=zip5&k2=1fmnw5ifn7c0nrxdl3ua28nz&service=zip5&output=json&d_zip="+zipcode;
     }
 }
