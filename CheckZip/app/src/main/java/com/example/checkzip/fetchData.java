@@ -1,6 +1,7 @@
 package com.example.checkzip;
 
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,7 +81,12 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
+        //TextView textView = find
         zipcheck.age.setText(this.dataParsed);
+       // Home.info.setText(this.dataParsed);
+        //textView.setText(this.dataParsed);
+        //MainFragment.textView.setText(this.dataParsed);
+        //news_header.seText(this.dataParsed);
     }
     public void setZipcode(String zipcode){
         //zipurl="https://api.myjson.com/bins/pit9s";

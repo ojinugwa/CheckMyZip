@@ -13,15 +13,16 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private Button signup, signin;
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        signup = (Button)findViewById(R.id.mainSignupBtn);
-        signin = (Button)findViewById(R.id.mainSigninBtn);
+        signup = (Button) findViewById(R.id.mainSignupBtn);
+        signin = (Button) findViewById(R.id.mainSigninBtn);
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user != null){
+        if (user != null) {
             finish();
             startActivity(new Intent(MainActivity.this, zipcheck.class));
         }

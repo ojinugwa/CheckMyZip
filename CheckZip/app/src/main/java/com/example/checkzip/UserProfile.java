@@ -5,13 +5,12 @@ public class UserProfile {
     public String lastName;
     public String username;
     public String email;
-    public String zipcode;
+    public static String zipcode = "19093";
     public String question;
     public String answer;
 
 
-
-    public UserProfile(String firstName, String lastName, String username, String email, String zipcode,String question, String answer){
+    public UserProfile(String firstName, String lastName, String username, String email, String zipcode, String question, String answer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;

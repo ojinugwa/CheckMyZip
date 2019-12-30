@@ -14,21 +14,21 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
     URL url;
     HttpURLConnection urlConnection = null;
 
-    protected  String doInBackground(String...urls){
-        try{
+    protected String doInBackground(String... urls) {
+        try {
             url = new URL(urls[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = urlConnection.getInputStream();
             InputStreamReader reader = new InputStreamReader(in);
             int data = reader.read();
-            while(data != -1){
+            while (data != -1) {
                 char current = (char) data;
-                result+= current;
+                result += current;
                 data = reader.read();
             }
             return result;
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
@@ -36,16 +36,16 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
     }
 
-    protected  void  onPostExecute(String result){
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(result);
             String weatherInfo = jsonObject.getString("weather");
             JSONObject weatherDatas = new JSONObject(jsonObject.getString("main"));
             double tempInt = Double.parseDouble(weatherDatas.getString("temp"));
-            int tempIn = (int)(tempInt*1.8-459.67);
-            
-        }catch (Exception e){
+            int tempIn = (int) (tempInt * 1.8 - 459.67);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

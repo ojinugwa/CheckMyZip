@@ -24,17 +24,18 @@ public class LoginActivity extends AppCompatActivity {
     private TextView signup;
     private FirebaseAuth firebaseAuth;
     private TextView forgetPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        useremail = (EditText)findViewById(R.id.emailText);
-        password = (EditText)findViewById(R.id.passwordText);
+        useremail = (EditText) findViewById(R.id.emailText);
+        password = (EditText) findViewById(R.id.passwordText);
         signin = (Button) findViewById(R.id.signinBtn);
-        signup = (TextView)findViewById(R.id.signupTV);
+        signup = (TextView) findViewById(R.id.signupTV);
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        forgetPassword = (TextView)findViewById(R.id.forgotPasswordTV);
+        forgetPassword = (TextView) findViewById(R.id.forgotPasswordTV);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,37 +66,37 @@ public class LoginActivity extends AppCompatActivity {
         });*/
 
 
-
-
-
     }
-    private void validate(String userName, String userPassword){
-        if(userName.isEmpty() ||userPassword.isEmpty()){
+
+    private void validate(String userName, String userPassword) {
+        if (userName.isEmpty() || userPassword.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please enter login information", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
 
-        firebaseAuth.signInWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    checkEmailVerification();
-                    //Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(LoginActivity.this, zipcheck.class));
-                }else{
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signInWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        checkEmailVerification();
+                        //Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        //startActivity(new Intent(LoginActivity.this, zipcheck.class));
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });}
+            });
+        }
     }
-    private void checkEmailVerification(){
+
+    private void checkEmailVerification() {
         FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         Boolean emailflag = firebaseUser.isEmailVerified();
 
         if (emailflag) {
             finish();
             startActivity(new Intent(LoginActivity.this, zipcheck.class));
-        }else{
-            Toast.makeText(this,"Verify your email", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Verify your email", Toast.LENGTH_SHORT).show();
             firebaseAuth.signOut();
         }
     }
